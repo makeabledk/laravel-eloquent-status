@@ -3,13 +3,11 @@
 namespace Makeable\EloquentStatus\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
-use Makeable\QueryKit\QueryKitServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Makeable\QueryKit\QueryKitServiceProvider;
 
 class TestCase extends BaseTestCase
 {
-    /**
-     */
     public function setUp()
     {
         parent::setUp();
