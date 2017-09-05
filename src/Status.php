@@ -59,7 +59,7 @@ abstract class Status
             throw new Exception(class_basename($model).' must implement a checkStatus() method');
         }
 
-        return static::all()->first(function($status) use ($model) {
+        return static::all()->first(function ($status) use ($model) {
             return $model->checkStatus($status);
         });
     }
@@ -72,7 +72,6 @@ abstract class Status
     {
         return static::all()->contains($value);
     }
-
 
     /**
      * @return string
