@@ -11,7 +11,7 @@ class BaseStatusTest extends TestCase
     public function test_it_detects_statuses()
     {
         $statuses = OrderStatus::all();
-        $this->assertEquals(2, $statuses->count());
+        $this->assertEquals(3, $statuses->count());
         $this->assertTrue($statuses->first() instanceof OrderStatus);
     }
 
@@ -37,5 +37,11 @@ class BaseStatusTest extends TestCase
     public function test_it_casts_to_string()
     {
         $this->assertEquals('accepted', (string) new OrderStatus('accepted'));
+    }
+
+    public function test_it_converts_to_snake_case()
+    {
+        $this->assertEquals('pending_accept', (string) new OrderStatus('pendingAccept'));
+        $this->assertEquals('pending_accept', (string) new OrderStatus('pending_accept'));
     }
 }

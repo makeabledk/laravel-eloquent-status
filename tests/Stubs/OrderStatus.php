@@ -8,12 +8,21 @@ use Makeable\EloquentStatus\Status;
 class OrderStatus extends Status
 {
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function pendingAccept($query)
+    {
+        return $query->whereNull('status');
+    }
+
+    /**
      * @param Builder $query
      * @return Builder
      */
     public function accepted($query)
     {
-        return $query->where('status', 'accepted');
+        return $query->where('status', 1);
     }
 
     /**
@@ -22,6 +31,6 @@ class OrderStatus extends Status
      */
     public function declined($query)
     {
-        return $query->where('status', 'declined');
+        return $query->where('status', 0);
     }
 }

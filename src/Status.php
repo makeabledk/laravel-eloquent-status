@@ -20,9 +20,12 @@ abstract class Status
      */
     public function __construct($value, bool $validate = true)
     {
+        $value = snake_case($value);
+
         if ($validate && ! static::validate($value)) {
             throw new InvalidStatusException("Invalid status {$value}");
         }
+
         $this->value = $value;
     }
 
@@ -87,6 +90,8 @@ abstract class Status
      */
     public function scope($query)
     {
-        return $this->{$this->get()}($query);
+        $method = camel_case($this->get());
+
+        return $this->$method($query);
     }
 }

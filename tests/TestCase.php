@@ -41,7 +41,7 @@ class TestCase extends BaseTestCase
     {
         $app['db']->connection()->getSchemaBuilder()->create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status');
+            $table->boolean('status')->nullable();
         });
     }
 }
