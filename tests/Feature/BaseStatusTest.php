@@ -39,6 +39,11 @@ class BaseStatusTest extends TestCase
         $this->assertEquals('accepted', (string) new OrderStatus('accepted'));
     }
 
+    public function test_it_casts_to_array()
+    {
+        $this->assertEquals('accepted', (new OrderStatus('accepted'))->toArray());
+    }
+
     public function test_it_converts_to_snake_case()
     {
         $this->assertEquals('pending_accept', (string) new OrderStatus('pendingAccept'));

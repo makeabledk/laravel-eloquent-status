@@ -3,10 +3,11 @@
 namespace Makeable\EloquentStatus;
 
 use Exception;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
-abstract class Status
+abstract class Status implements Arrayable
 {
     /**
      * @var string
@@ -33,6 +34,14 @@ abstract class Status
      * @return string
      */
     public function __toString()
+    {
+        return $this->get();
+    }
+
+    /**
+     * @return string
+     */
+    public function toArray()
     {
         return $this->get();
     }
