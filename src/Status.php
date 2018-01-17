@@ -6,8 +6,9 @@ use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
+use JsonSerializable;
 
-abstract class Status implements Arrayable
+abstract class Status implements Arrayable, JsonSerializable
 {
     /**
      * @var string
@@ -36,6 +37,14 @@ abstract class Status implements Arrayable
     public function __toString()
     {
         return $this->get();
+    }
+
+    /**
+     * @return string
+     */
+    function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
     /**
