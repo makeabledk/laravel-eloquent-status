@@ -30,6 +30,7 @@ composer require makeabledk/laravel-eloquent-status
 Given our Approval example from earlier we may have the following database fields:
 
 - id
+- *... (some foreign keys)*
 - tutor_approved_at
 - teacher_approved_at
 - assessor_approved_at
