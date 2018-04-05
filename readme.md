@@ -41,7 +41,7 @@ Let's start out by creating a status class that holds our status definitions
 
 ### Creating a status class
 
-We will define all our valid statuses as public function in a dedicated status class. 
+We will define all our valid statuses as public functions in a dedicated status class. 
 
 ````php
 <?php
@@ -73,9 +73,7 @@ class ApprovalStatus extends \Makeable\EloquentStatus\Status
 }
 ````
 
-Notice how the functions are basically just like `scope` functions. 
-
-While this example is super simple, you have the full power of the Eloquent Query Builder at your disposal.
+Notice how the statuses are defined just like regular `scope` functions. While this example is super simple, you have the full power of the Eloquent Query Builder at your disposal!
 
 **Tip:** We recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
 
@@ -120,6 +118,8 @@ Approval::first()->checkStatus(new ApprovalStatus('reviewing')); // true / false
 This sorcery is powered by our other package [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
 
 **Note:** While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. 
+
+Checkout the QueryKit documentation for more information.
 
 ### Guessing model status
 
