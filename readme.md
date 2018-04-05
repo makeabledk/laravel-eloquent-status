@@ -5,13 +5,13 @@
 [![Build Status](https://img.shields.io/travis/makeabledk/laravel-eloquent-status/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-eloquent-status)
 [![StyleCI](https://styleci.io/repos/102474433/shield?branch=master)](https://styleci.io/repos/102474433)
 
-Most models has some sort of status or state to it. Few examples
+Most models has some sort of status or state to it. Few examples could be
 
 - Post: draft, private, published, 
 - Job: applied, accepted, declined, completed, cancelled
 - Approval: pending, reviewing, approved
 
-Traditionally you may find yourself having `scopeAccepted` and then additionally a `ìsAccepted` helper method to check the instance it self.
+Traditionally you may find yourself having a `scopeAccepted` and then additionally a `ìsAccepted` helper method to test a model-instance against a specific status.
 
 This package offers a very handy way of dealing with statuses like these without cluttering you model.
 
@@ -27,19 +27,20 @@ composer require makeabledk/laravel-eloquent-status
 
 ## Example usage
 
-Given our Approval example from earlier we may have the following model attributes:
+Given our Approval example from earlier we may have the following database fields:
 
+- id
 - tutor_approved_at
 - teacher_approved_at
 - assessor_approved_at
+- created_at
+- updated_at
 
 Let's start out by creating a status class that holds our status definitions
 
 ### Creating a status class
 
-We will define all our valid statuses as public function in our status class. 
-
-You have the full power of the Eloquent Query Builder at your disposal.
+We will define all our valid statuses as public function in a dedicated status class. 
 
 ````php
 <?php
@@ -71,7 +72,11 @@ class ApprovalStatus extends \Makeable\EloquentStatus\Status
 }
 ````
 
-Tip: we recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
+Notice how the functions are basically just like `scope` functions. 
+
+While this example is super simple, you have the full power of the Eloquent Query Builder at your disposal.
+
+**Tip:** We recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
 
 This will come in handy in the next few steps.
 
@@ -94,15 +99,15 @@ Now we can query our database:
 Approval::status(new ApprovalStatus('pending'))->get();
 ```
 
-Notice how this is very close to just calling a scope like we're used to: `Approval::pending()`.
+Again, notice how this is very close to just calling a scope like we're used to: `Approval::pending()`.
 
-However, there are som benefits to this new approach. For instance, we can only query against valid statuses.
+However there are som benefits to this new approach. For instance, we can only query against valid statuses.
 
 ```php
 Approval::status(new ApprovalStatus('something-else'))->get(); // throws exception
 ```
 
-This makes it convenient and safe to accept a raw status from a GET filter in your controller and return the result with no further validation or if-switches.
+For instance this makes it convenient and safe to accept a raw status from a GET filter in your controller and return the result with no further validation or if-switches.
 
 ### Checking model status
 
@@ -111,7 +116,7 @@ Even more importantly we can actually use the same status definitions to check a
 ````php
 Approval::first()->checkStatus(new ApprovalStatus('reviewing')); // true / false
 ````
-This sorcery is achieved by the magical powers of [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
+This sorcery is powered by our other package [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
 
 **Note:** While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. 
 
@@ -136,11 +141,7 @@ class Approval extends Model
 Now `Approval::first()->status` would attempt resolve the approval status from your definitions.
 
 **Note:** The status is guessed by checking each definition one-by-one until one passes. 
-You should be careful not to load relations in your definitions or if so consider a caching-strategy for performance reasons.
-
-## Change log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+You should be careful not to load relations in your definitions and generally consider a caching-strategy for large query-sets.
 
 ## Testing
 
