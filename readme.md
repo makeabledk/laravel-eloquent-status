@@ -15,6 +15,8 @@ Traditionally you may find yourself having a `scopeAccepted` and then additional
 
 This package offers a very handy way of dealing with statuses like these without cluttering you model.
 
+--
+
 Makeable is web- and mobile app agency located in Aarhus, Denmark.
 
 ## Install
@@ -39,7 +41,9 @@ Given our Approval example from earlier we may have the following database field
 
 Let's start out by creating a status class that holds our status definitions
 
-### Creating a status class
+### Getting started
+
+#### 1. Create a status class
 
 We will define all our valid statuses as public functions in a dedicated status class. 
 
@@ -75,24 +79,24 @@ class ApprovalStatus extends \Makeable\EloquentStatus\Status
 
 Notice how the statuses are defined just like regular `scope` functions. While this example is super simple, you have the full power of the Eloquent Query Builder at your disposal!
 
-**Tip:** We recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
-
+**🔥 Tip:** We recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
 This will come in handy in the next few steps.
 
-### Querying our model
-
-Before we can query our model we need to add the `HasStatus` trait.
+#### 2. Apply the `HasStatus` trait on the model
 
 ```php
 <?php 
+use \Makeable\EloquentStatus\HasStatus;
 
-class Approval extends Model 
+class Approval extends Eloquent 
 {
-    use \Makeable\EloquentStatus\HasStatus;
+    use HasStatus;
 }
 ```
 
-Now we can query our database:
+### Querying our database
+
+Now we can query our database for approvals using the defined statuses:
 
 ```php
 Approval::status(new ApprovalStatus('pending'))->get();
@@ -100,7 +104,10 @@ Approval::status(new ApprovalStatus('pending'))->get();
 
 Again, notice how this is very close to just calling a scope like we're used to: `Approval::pending()`.
 
-However there are som benefits to this new approach. For instance, we can only query against valid statuses.
+However there are som benefits to this new approach. 
+
+- We've defined and encapsulated all our statuses in one place de-cluttering our model
+- We can only query against valid statuses
 
 ```php
 Approval::status(new ApprovalStatus('something-else'))->get(); // throws exception
@@ -108,13 +115,15 @@ Approval::status(new ApprovalStatus('something-else'))->get(); // throws excepti
 
 For instance this makes it convenient and safe to accept a raw status from a GET filter in your controller and return the result with no further validation or if-switches.
 
+
 ### Checking model status
 
 Even more importantly we can actually use the same status definitions to check a single instance of our model.
 
 ````php
-Approval::first()->checkStatus(new ApprovalStatus('reviewing')); // true / false
+$approval->checkStatus(new ApprovalStatus('reviewing')); // true or false
 ````
+
 This sorcery is powered by our other package [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
 
 **Note:** While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. 
@@ -126,12 +135,14 @@ Checkout the QueryKit documentation for more information.
 What if you wanted to know *which* status a model is from its attributes? Well you're in luck.
 
 ````php
+
 <?php 
+use \Makeable\EloquentStatus\HasStatus;
 
-class Approval extends Model 
+class Approval extends Eloquent 
 {
-    use \Makeable\EloquentStatus\HasStatus;
-
+    use HasStatus;
+    
     public function getStatusAttribute()
     {
         return ApprovalStatus::guess($this);
@@ -139,10 +150,59 @@ class Approval extends Model
 }
 ````
 
-Now `Approval::first()->status` would attempt resolve the approval status from your definitions.
+Now `$approval->status` would attempt resolve the approval status from your definitions.
 
 **Note:** The status is guessed by checking each definition one-by-one until one passes. 
 You should be careful not to load relations in your definitions and generally consider a caching-strategy for large query-sets.
+
+### Binding a default status to a model
+
+Rather than passing an instance of a status class each time you perform a check, you may bind a default status class to your model:
+
+````php
+use Makeable\EloquentStatus\StatusManager;
+
+StatusManager::bind(Approval::class, ApprovalStatus::class);
+````
+
+Now you may simply type name of the status
+
+```php
+$approval->checkStatus('accepted'); 
+```
+Other status classes than the default can still be used when passed explicitly.
+
+You may bind the status classes in the `boot` function of your `AppServiceProvider` or create a separate service provider if you wish.
+
+
+## Available methods on `HasStatus`
+
+### `scopeStatus($status)`
+
+```php
+Approval::status(new ApprovalStatus('approved'))->get(); // Collection
+
+// Or when default status is defined
+Approval::status('approved')->get(); // Collection
+```
+
+### `scopeStatusIn($statuses)`
+
+```php
+Approval::statusIn(['pending', 'reviewing'])->get(); // Collection
+```
+
+### `checkStatus`
+
+```php
+$approval->checkStatus('approved'); // bool
+```
+
+### `checkStatusIn`
+
+```php
+$approval->checkStatus(['pending', 'reviewing']); // bool
+```
 
 ## Testing
 
