@@ -15,6 +15,16 @@ Traditionally you may find yourself having a `scopeAccepted` and then additional
 
 This package offers a very handy way of dealing with statuses like these without cluttering you model.
 
+When you've successfully setup this package you'll be able to achieve syntax like
+
+````php
+Approval::status('approved')->get(); // Collection
+````
+
+````php
+$model->checkStatus('approved')->get(); // bool
+````
+
 --
 
 Makeable is web- and mobile app agency located in Aarhus, Denmark.
@@ -82,7 +92,7 @@ Notice how the statuses are defined just like regular `scope` functions. While t
 **🔥 Tip:** We recommend that your statuses has unambiguous definitions, meaning that a model can only pass one definition at a time.
 This will come in handy in the next few steps.
 
-#### 2. Apply the `HasStatus` trait on the model
+#### 2. Apply trait on the model
 
 ```php
 <?php 
@@ -94,7 +104,7 @@ class Approval extends Eloquent
 }
 ```
 
-### Querying our database
+### Querying the database
 
 Now we can query our database for approvals using the defined statuses:
 
@@ -116,9 +126,11 @@ Approval::status(new ApprovalStatus('something-else'))->get(); // throws excepti
 For instance this makes it convenient and safe to accept a raw status from a GET filter in your controller and return the result with no further validation or if-switches.
 
 
-### Checking model status
+### 🔥 Checking model status
 
-Even more importantly we can actually use the same status definitions to check a single instance of our model.
+The real magic of the package!
+
+We can actually use the same status definitions to check if a model instance adheres to a given status.
 
 ````php
 $approval->checkStatus(new ApprovalStatus('reviewing')); // true or false
@@ -152,8 +164,9 @@ class Approval extends Eloquent
 
 Now `$approval->status` would attempt resolve the approval status from your definitions.
 
-**Note:** The status is guessed by checking each definition one-by-one until one passes. 
-You should be careful not to load relations in your definitions and generally consider a caching-strategy for large query-sets.
+**Note:** The status is guessed by checking each definition one-by-one until one passes. This is why you may consider unambiguous definitions.
+
+Also you should be careful not to load relations in your definitions and generally consider a caching-strategy for large query-sets.
 
 ### Binding a default status to a model
 
@@ -177,7 +190,7 @@ You may bind the status classes in the `boot` function of your `AppServiceProvid
 
 ## Available methods on `HasStatus`
 
-### `scopeStatus($status)`
+**- scopeStatus($status)**
 
 ```php
 Approval::status(new ApprovalStatus('approved'))->get(); // Collection
@@ -186,19 +199,19 @@ Approval::status(new ApprovalStatus('approved'))->get(); // Collection
 Approval::status('approved')->get(); // Collection
 ```
 
-### `scopeStatusIn($statuses)`
+**- scopeStatusIn($statuses)**
 
 ```php
 Approval::statusIn(['pending', 'reviewing'])->get(); // Collection
 ```
 
-### `checkStatus`
+**- checkStatus**
 
 ```php
 $approval->checkStatus('approved'); // bool
 ```
 
-### `checkStatusIn`
+**- checkStatusIn**
 
 ```php
 $approval->checkStatus(['pending', 'reviewing']); // bool
