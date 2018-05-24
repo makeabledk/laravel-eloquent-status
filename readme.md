@@ -22,13 +22,12 @@ Approval::status('approved')->get(); // Collection
 ````
 
 ````php
-$model->checkStatus('approved')->get(); // bool
+$model->checkStatus('approved'); // bool
 ````
 
 --
 
 Makeable is web- and mobile app agency located in Aarhus, Denmark.
-
 ## Install
 
 You can install this package via composer:
