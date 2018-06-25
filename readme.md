@@ -5,6 +5,11 @@
 [![Build Status](https://img.shields.io/travis/makeabledk/laravel-eloquent-status/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-eloquent-status)
 [![StyleCI](https://styleci.io/repos/102474433/shield?branch=master)](https://styleci.io/repos/102474433)
 
+**Check out the blog post explaining the concepts of this package:**
+
+https://medium.com/@rasmuscnielsen/an-eloquent-way-of-handling-model-state-c9aa372e9cb8
+___
+
 Most models has some sort of status or state to it. Few examples could be
 
 - Post: draft, private, published, 
@@ -25,10 +30,11 @@ Approval::status('approved')->get(); // Collection
 $model->checkStatus('approved'); // bool
 ````
 
---
+___
 
 Makeable is web- and mobile app agency located in Aarhus, Denmark.
-## Install
+
+## Installation
 
 You can install this package via composer:
 
@@ -137,9 +143,7 @@ $approval->checkStatus(new ApprovalStatus('reviewing')); // true or false
 
 This sorcery is powered by our other package [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
 
-**Note:** While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. 
-
-Checkout the QueryKit documentation for more information.
+**Note:** Make sure to see the *Limitations* section of this readme.
 
 ### Guessing model status
 
@@ -167,6 +171,8 @@ Now `$approval->status` would attempt resolve the approval status from your defi
 
 Also you should be careful not to load relations in your definitions and generally consider a caching-strategy for large query-sets.
 
+Furthermore see the *Limitations* section of this readme.
+
 ### Binding a default status to a model
 
 Rather than passing an instance of a status class each time you perform a check, you may bind a default status class to your model:
@@ -185,6 +191,19 @@ $approval->checkStatus('accepted');
 Other status classes than the default can still be used when passed explicitly.
 
 You may bind the status classes in the `boot` function of your `AppServiceProvider` or create a separate service provider if you wish.
+
+
+## Limitations
+
+This package is an abstraction on top of [makeabledk/laravel-query-kit](https://github.com/makeabledk/laravel-query-kit).
+
+QueryKit provides a mocked version of the native QueryBuilder, allowing to run a scope function against a model instance.
+
+This approach ensures great performance with no DB-queries needed, but introduces certain limitations. 
+
+While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. These limitation only applies to For instance it cannot parse raw SQL when using `checkStatus()` and `guess()` functions.
+
+Check out the **Limitations** section in the [makeabledk/laravel-query-kit documentation](https://github.com/makeabledk/laravel-query-kit) for more information.
 
 
 ## Available methods on `HasStatus`
