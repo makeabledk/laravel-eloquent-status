@@ -201,7 +201,7 @@ QueryKit provides a mocked version of the native QueryBuilder, allowing to run a
 
 This approach ensures great performance with no DB-queries needed, but introduces certain limitations. 
 
-While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. These limitation only applies to For instance it cannot parse raw SQL when using `checkStatus()` and `guess()` functions.
+While QueryKit supports most QueryBuilder syntaxes such as closures and nested queries, it *does not* support SQL language such as joins and selects. These limitation only applies to `checkStatus()` and `guess()` functions.
 
 Check out the **Limitations** section in the [makeabledk/laravel-query-kit documentation](https://github.com/makeabledk/laravel-query-kit) for more information.
 
