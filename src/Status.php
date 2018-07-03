@@ -81,7 +81,7 @@ abstract class Status implements Arrayable, JsonSerializable
         }
 
         return static::all()->first(function ($status) use ($model) {
-            return $model->checkStatus($status);
+            return (string) $model->checkStatus($status);
         });
     }
 
