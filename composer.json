@@ -9,7 +9,7 @@
     "require": {
         "php": ">=7.0.0",
         "illuminate/support": "^5.4",
-        "makeabledk/laravel-querykit": "^1.1"
+        "makeabledk/laravel-querykit": "^1.2"
     },
     "require-dev": {
         "laravel/laravel": "5.5",
