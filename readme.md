@@ -232,7 +232,7 @@ $approval->checkStatus('approved'); // bool
 **- checkStatusIn**
 
 ```php
-$approval->checkStatus(['pending', 'reviewing']); // bool
+$approval->checkStatusIn(['pending', 'reviewing']); // bool
 ```
 
 ## Testing
