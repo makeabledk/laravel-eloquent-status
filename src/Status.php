@@ -103,6 +103,14 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return str_replace('_', ' ', title_case($this->value));
+    }
+
+    /**
      * @param $query
      * @return Builder
      */

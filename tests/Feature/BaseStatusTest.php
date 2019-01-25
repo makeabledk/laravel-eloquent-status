@@ -49,4 +49,9 @@ class BaseStatusTest extends TestCase
         $this->assertEquals('pending_accept', (string) new OrderStatus('pendingAccept'));
         $this->assertEquals('pending_accept', (string) new OrderStatus('pending_accept'));
     }
+
+    public function test_it_converts_to_title()
+    {
+        $this->assertEquals('Pending Accept', (new OrderStatus('pendingAccept'))->getTitle());
+    }
 }
