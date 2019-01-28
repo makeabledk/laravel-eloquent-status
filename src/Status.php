@@ -47,9 +47,8 @@ abstract class Status implements Arrayable, JsonSerializable
     {
         try {
             return new static($value);
-        }
-        catch (InvalidStatusException $e) {
-            return null;
+        } catch (InvalidStatusException $e) {
+            return;
         }
     }
 
