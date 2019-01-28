@@ -34,6 +34,12 @@ class BaseStatusTest extends TestCase
         new OrderStatus('invalid status');
     }
 
+    public function test_it_finds_a_valid_status_or_returns_null()
+    {
+        $this->assertInstanceOf(OrderStatus::class, OrderStatus::find('accepted'));
+        $this->assertNull(OrderStatus::find('foobar'));
+    }
+
     public function test_it_casts_to_string()
     {
         $this->assertEquals('accepted', (string) new OrderStatus('accepted'));

@@ -40,6 +40,20 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
+     * @param $value
+     * @return Status|null
+     */
+    public static function find($value)
+    {
+        try {
+            return new static($value);
+        }
+        catch (InvalidStatusException $e) {
+            return null;
+        }
+    }
+
+    /**
      * @return string
      */
     public function jsonSerialize()
