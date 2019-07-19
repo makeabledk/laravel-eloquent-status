@@ -3,13 +3,13 @@
 namespace Makeable\EloquentStatus;
 
 use Exception;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionMethod;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use JsonSerializable;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 
 abstract class Status implements Arrayable, JsonSerializable
 {
