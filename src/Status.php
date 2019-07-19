@@ -4,6 +4,7 @@ namespace Makeable\EloquentStatus;
 
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionMethod;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
@@ -72,6 +73,7 @@ abstract class Status implements Arrayable, JsonSerializable
 
     /**
      * @return Collection
+     * @throws ReflectionException
      */
     public static function all()
     {

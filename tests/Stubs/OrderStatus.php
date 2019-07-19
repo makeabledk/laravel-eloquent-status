@@ -33,4 +33,20 @@ class OrderStatus extends Status
     {
         return $query->where('status', 0);
     }
+
+    /**
+     * @return void
+     */
+    private function privateMethodToIgnore()
+    {
+        //
+    }
+
+    /**
+     * @return void
+     */
+    public static function staticMethodToIgnore()
+    {
+        //
+    }
 }
