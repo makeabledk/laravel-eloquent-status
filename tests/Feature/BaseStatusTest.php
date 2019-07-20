@@ -15,6 +15,18 @@ class BaseStatusTest extends TestCase
         $this->assertTrue($statuses->first() instanceof OrderStatus);
     }
 
+    public function test_it_skips_static_methods()
+    {
+        $this->expectException(InvalidStatusException::class);
+        new OrderStatus('static method to skip');
+    }
+
+    public function test_it_skips_private_methods()
+    {
+        $this->expectException(InvalidStatusException::class);
+        new OrderStatus('private method to skip');
+    }
+
     public function test_it_validates_statuses()
     {
         $this->assertTrue(OrderStatus::validate('accepted'));

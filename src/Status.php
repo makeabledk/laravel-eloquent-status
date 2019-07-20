@@ -7,6 +7,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use JsonSerializable;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 
 abstract class Status implements Arrayable, JsonSerializable
 {
@@ -70,15 +73,21 @@ abstract class Status implements Arrayable, JsonSerializable
 
     /**
      * @return Collection
+     * @throws ReflectionException
      */
     public static function all()
     {
-        return collect(get_class_methods(static::class))
-            ->reject(function ($method) {
-                return in_array($method, get_class_methods(self::class));
+        $class = new ReflectionClass(static::class);
+
+        return collect($class->getMethods(ReflectionMethod::IS_PUBLIC))
+            ->filter(function (ReflectionMethod $method) {
+                return $method->getDeclaringClass()->getName() === static::class;
             })
-            ->map(function ($status) {
-                return new static($status, false);
+            ->reject(function (ReflectionMethod $method) {
+                return $method->isStatic();
+            })
+            ->map(function (ReflectionMethod $method) {
+                return new static($method->getName(), false);
             });
     }
 
