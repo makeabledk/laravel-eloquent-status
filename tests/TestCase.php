@@ -8,7 +8,7 @@ use Makeable\QueryKit\QueryKitServiceProvider;
 
 class TestCase extends BaseTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

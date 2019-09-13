@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use ReflectionClass;
 use ReflectionException;
@@ -25,7 +26,7 @@ abstract class Status implements Arrayable, JsonSerializable
      */
     public function __construct($value, bool $validate = true)
     {
-        $value = snake_case($value);
+        $value = Str::snake($value);
 
         if ($validate && ! static::validate($value)) {
             throw new InvalidStatusException("Invalid status {$value}");
@@ -129,7 +130,7 @@ abstract class Status implements Arrayable, JsonSerializable
      */
     public function getTitle()
     {
-        return str_replace('_', ' ', title_case($this->value));
+        return str_replace('_', ' ', Str::title($this->value));
     }
 
     /**
@@ -138,7 +139,7 @@ abstract class Status implements Arrayable, JsonSerializable
      */
     public function scope($query)
     {
-        $method = camel_case($this->get());
+        $method = Str::camel($this->get());
 
         return $this->$method($query);
     }

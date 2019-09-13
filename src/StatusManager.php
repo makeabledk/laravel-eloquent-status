@@ -3,6 +3,7 @@
 namespace Makeable\EloquentStatus;
 
 use ArrayAccess;
+use Illuminate\Support\Arr;
 
 class StatusManager
 {
@@ -49,7 +50,7 @@ class StatusManager
             return $status;
         }
 
-        if ($match = array_get(static::$map, get_class($model))) {
+        if ($match = Arr::get(static::$map, get_class($model))) {
             return new $match($status);
         }
 
