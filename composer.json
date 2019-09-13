@@ -8,13 +8,12 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "^5.4",
-        "makeabledk/laravel-querykit": "^1.2"
+        "illuminate/support": "^5.5|^6.0",
+        "makeabledk/laravel-querykit": "^2.0"
     },
     "require-dev": {
-        "laravel/laravel": "5.5",
-        "friendsofphp/php-cs-fixer": "^2.3",
-        "orchestra/testbench": "~3.5"
+        "laravel/laravel": "^5.5|^6.0",
+        "phpunit/phpunit": "^6.0|^7.0|^8.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -22,7 +21,6 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit",
-        "style": "./vendor/bin/php-cs-fixer fix ./src --rules=@PSR2,@Symfony,ordered_class_elements,ordered_imports --verbose"
+        "test": "./vendor/bin/phpunit"
     }
 }

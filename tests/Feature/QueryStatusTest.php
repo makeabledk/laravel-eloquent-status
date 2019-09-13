@@ -10,7 +10,7 @@ use Makeable\EloquentStatus\Tests\TestCase;
 
 class QueryStatusTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
