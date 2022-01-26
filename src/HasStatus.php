@@ -11,8 +11,8 @@ trait HasStatus
     use QueryKit;
 
     /**
-     * @param Builder $query
-     * @param Status|string $status
+     * @param  Builder  $query
+     * @param  Status|string  $status
      * @return Builder
      */
     public function scopeStatus($query, $status)
@@ -23,8 +23,8 @@ trait HasStatus
     }
 
     /**
-     * @param Builder $query
-     * @param ArrayAccess|array $statuses
+     * @param  Builder  $query
+     * @param  ArrayAccess|array  $statuses
      * @return Builder
      */
     public function scopeStatusIn($query, $statuses)
@@ -39,7 +39,7 @@ trait HasStatus
     }
 
     /**
-     * @param Status|string $status
+     * @param  Status|string  $status
      * @return bool
      */
     public function checkStatus($status)
@@ -48,7 +48,7 @@ trait HasStatus
     }
 
     /**
-     * @param ArrayAccess|array $statuses
+     * @param  ArrayAccess|array  $statuses
      * @return bool
      */
     public function checkStatusIn($statuses)
