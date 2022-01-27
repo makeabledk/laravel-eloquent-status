@@ -22,8 +22,8 @@ class StatusManager
     }
 
     /**
-     * @param ArrayAccess|array $modelStatusMap
-     * @param bool $merge
+     * @param  ArrayAccess|array  $modelStatusMap
+     * @param  bool  $merge
      * @return array
      */
     public static function map($modelStatusMap, $merge = true)
@@ -42,6 +42,7 @@ class StatusManager
     /**
      * @param $model
      * @return Status
+     *
      * @throws InvalidStatusException
      */
     public static function resolveOrFail($model, $status)

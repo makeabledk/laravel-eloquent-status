@@ -21,7 +21,8 @@ abstract class Status implements Arrayable, JsonSerializable
 
     /**
      * @param $value
-     * @param bool $validate
+     * @param  bool  $validate
+     *
      * @throws InvalidStatusException
      */
     public function __construct($value, bool $validate = true)
@@ -74,6 +75,7 @@ abstract class Status implements Arrayable, JsonSerializable
 
     /**
      * @return Collection
+     *
      * @throws ReflectionException
      */
     public static function all()
@@ -95,6 +97,7 @@ abstract class Status implements Arrayable, JsonSerializable
     /**
      * @param $model
      * @return Status
+     *
      * @throws Exception
      */
     public static function guess($model)

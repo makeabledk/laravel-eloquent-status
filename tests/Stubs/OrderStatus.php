@@ -17,7 +17,7 @@ class OrderStatus extends Status
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder  $query
      * @return Builder
      */
     public function accepted($query)
@@ -26,7 +26,7 @@ class OrderStatus extends Status
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder  $query
      * @return Builder
      */
     public function declined($query)

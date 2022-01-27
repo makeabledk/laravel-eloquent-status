@@ -2,7 +2,7 @@
 # Laravel Eloquent Status
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/makeabledk/laravel-eloquent-status.svg?style=flat-square)](https://packagist.org/packages/makeabledk/laravel-eloquent-status)
-[![Build Status](https://img.shields.io/travis/makeabledk/laravel-eloquent-status/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-eloquent-status)
+[![Build Status](https://img.shields.io/github/workflow/status/makeabledk/laravel-eloquent-status/Run%20tests?label=Tests)](https://github.com/makeabledk/laravel-eloquent-status/actions)
 [![StyleCI](https://styleci.io/repos/102474433/shield?branch=master)](https://styleci.io/repos/102474433)
 
 **Check out the blog post explaining the concepts of this package:**
