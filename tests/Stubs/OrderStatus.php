@@ -8,7 +8,7 @@ use Makeable\EloquentStatus\Status;
 class OrderStatus extends Status
 {
     /**
-     * @param $query
+     * @param  $query
      * @return mixed
      */
     public function pendingAccept($query)

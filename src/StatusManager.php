@@ -13,8 +13,8 @@ class StatusManager
     protected static $map = [];
 
     /**
-     * @param $model
-     * @param $status
+     * @param  $model
+     * @param  $status
      */
     public static function bind($model, $status)
     {
@@ -40,7 +40,7 @@ class StatusManager
     }
 
     /**
-     * @param $model
+     * @param  $model
      * @return Status
      *
      * @throws InvalidStatusException
