@@ -8,12 +8,12 @@
     },
     "require": {
         "php": "^8.1",
-        "illuminate/support": "^9.0|^10.0|^11.0",
+        "illuminate/support": "^10.0|^11.0",
         "makeabledk/laravel-querykit": "^3.0|^4.0"
     },
     "require-dev": {
-        "laravel/laravel": "^9.5|^10.3|^11.0",
-        "phpunit/phpunit": "^9.0|^10.5"
+        "laravel/laravel": "^10.3.3|^11.0.5",
+        "phpunit/phpunit": "^10.5.17"
     },
     "autoload-dev": {
         "psr-4": {

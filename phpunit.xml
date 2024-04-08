@@ -8,9 +8,4 @@
   <php>
     <ini name="display_errors" value="1"/>
   </php>
-  <source>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-  </source>
 </phpunit>
