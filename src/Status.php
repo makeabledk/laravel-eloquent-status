@@ -20,7 +20,7 @@ abstract class Status implements Arrayable, JsonSerializable
     protected $value;
 
     /**
-     * @param $value
+     * @param  $value
      * @param  bool  $validate
      *
      * @throws InvalidStatusException
@@ -45,7 +45,7 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
-     * @param $value
+     * @param  $value
      * @return Status|null
      */
     public static function find($value)
@@ -95,7 +95,7 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
-     * @param $model
+     * @param  $model
      * @return Status
      *
      * @throws Exception
@@ -112,7 +112,7 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
-     * @param $value
+     * @param  $value
      * @return bool
      */
     public static function validate($value)
@@ -137,7 +137,7 @@ abstract class Status implements Arrayable, JsonSerializable
     }
 
     /**
-     * @param $query
+     * @param  $query
      * @return Builder
      */
     public function scope($query)
