@@ -60,7 +60,7 @@ abstract class Status implements Arrayable, JsonSerializable
     /**
      * @return string
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
